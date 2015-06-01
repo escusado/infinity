@@ -748,7 +748,9 @@
     items.push(item);
     item.parent = this;
     this.$el.append(item.$el);
-
+    if(this.onscreen){
+      item.$el.trigger('enter-view');
+    }
     this.lazyloaded = false;
   };
 
@@ -772,7 +774,9 @@
     items.splice(0,0,item);
     item.parent = this;
     this.$el.prepend(item.$el);
-
+    if(this.onscreen){
+      item.$el.trigger('enter-view');
+    }
     this.lazyloaded = false;
   };
 
@@ -795,6 +799,9 @@
     if(!this.onscreen) {
       this.$el.appendTo($el);
       this.onscreen = true;
+      this.items.forEach(function(item){
+        item.$el.trigger('enter-view');
+      });
     }
   };
 
@@ -807,6 +814,9 @@
     if(!this.onscreen) {
       this.$el.prependTo($el);
       this.onscreen = true;
+      this.items.forEach(function(item){
+        item.$el.trigger('enter-view');
+      });
     }
   };
 
